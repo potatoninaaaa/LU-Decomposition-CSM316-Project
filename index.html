@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LU Decomposition: Interactive Tutorial and Solver</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>LU Decomposition</h1>
+    <nav>
+      <a href="#theory">Theory</a>
+      <a href="#algorithm">Algorithm</a>
+      <a href="#sample">Sample Problem</a>
+      <a href="#webapp">Web Solver</a>
+      <a href="#download">Download</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card" id="main">
+      <!-- Theory Section -->
+      <h2 id="theory">1. Theory of LU Decomposition</h2>
+      <p class="muted small">
+        LU Decomposition is an elimination-based technique for factoring a square matrix <code>A</code> into the
+        product of a lower triangular matrix <code>L</code> and an upper triangular matrix <code>U</code>:
+        <strong>A = L · U</strong>. It is widely used to solve linear systems, compute matrix inverses, and in many
+        numerical methods where the same coefficient matrix is reused with different right-hand-side vectors.
+      </p>
+
+      <h3>1.1 Formal Overview</h3>
+      <p>
+        For a square matrix <code>A ∈ ℝ<sup>n×n</sup></code>, LU decomposition produces
+        <code>L</code> (lower triangular, usually with ones on the diagonal in Doolittle) and <code>U</code>
+        (upper triangular) such that:
+      </p>
+      <p style="font-family: monospace; font-size:1rem;"><strong>A = L · U</strong></p>
+
+      <h3>1.2 Why use LU?</h3>
+      <p>
+        If you need to solve <code>A x = b</code> for many different <code>b</code> vectors but the same <code>A</code>,
+        it's expensive to run Gaussian elimination for each <code>b</code>. Instead, factor <code>A</code> once into
+        <code>L</code> and <code>U</code>, then solve using:
+      </p>
+      <ol>
+        <li>Forward substitution: <code>L y = b</code> → compute <code>y</code></li>
+        <li>Back substitution: <code>U x = y</code> → compute <code>x</code></li>
+      </ol>
+
+      <h3>1.3 Explanation of L and U</h3>
+      <p>
+        In the Doolittle variant, <code>L</code> has 1s on its diagonal and nonzero entries below the diagonal.
+        <code>U</code> has nonzero entries on and above the diagonal. Example shapes:
+      </p>
+
+     <div class="diagram" aria-hidden="true" style="text-align:center; margin: 20px 0;">
+  <!-- Simple SVG showing triangular shapes for L and U -->
+  <svg viewBox="0 0 400 160" width="80%" height="160" role="img" aria-label="L and U triangular shapes">
+    <!-- L matrix -->
+    <text x="50" y="20" font-size="14" font-weight="bold">L (lower triangular)</text>
+    <rect x="30" y="30" width="120" height="100" fill="none" stroke="#888" stroke-width="1.5"></rect>
+    <path d="M30,130 L30,40 L150,130 Z" fill="#eef" stroke="#88a" stroke-width="1.2"></path>
+
+    <!-- U matrix -->
+    <text x="220" y="20" font-size="14" font-weight="bold">U (upper triangular)</text>
+    <rect x="200" y="30" width="120" height="100" fill="none" stroke="#888" stroke-width="1.5"></rect>
+    <path d="M200,40 L320,40 L320,130 Z" fill="#efe" stroke="#8a8" stroke-width="1.2"></path>
+  </svg>
+</div>
+
+
+      <h3>1.4 Mathematical Derivation (component formulas)</h3>
+      <p>
+        Let <code>a<sub>ij</sub></code>, <code>l<sub>ij</sub></code>, <code>u<sub>ij</sub></code> denote elements of
+        <code>A</code>, <code>L</code>, <code>U</code>. For Doolittle (L has 1s on diagonal) the entries are computed as:
+      </p>
+      <pre class="mono">
+For i = 0..n-1:
+  For j = i..n-1:   (compute U row i)
+    u_ij = a_ij − Σ_{k=0}^{i-1} l_ik · u_kj
+
+  For j = i+1..n-1: (compute L column i)
+    l_ji = ( a_ji − Σ_{k=0}^{i-1} l_jk · u_ki ) / u_ii
+
+  Set l_ii = 1
+      </pre>
+
+      <p>
+        These formulas come from equating the product <code>L·U</code> to <code>A</code> and solving elementwise
+        for the unknowns. The sums represent contributions from already-computed earlier rows/columns.
+      </p>
+
+      <h3>1.5 Important Notes (Pivoting & Validity)</h3>
+      <ul>
+        <li>LU decomposition without row exchanges requires that all leading principal minors are non-zero — if any
+            pivot <code>u_ii</code> is zero you must perform row exchanges (partial pivoting).</li>
+        <li>Numerical stability typically requires partial pivoting (LU with pivoting, i.e. PA = LU).</li>
+        <li>LU exists for a wide class of matrices; special variants exist for symmetric positive-definite (Cholesky).</li>
+      </ul>
+
+      <h3>1.6 Limitations</h3>
+<p>
+  The current LU solver with partial pivoting is robust for many matrices, but it has some limitations:
+</p>
+<ul>
+  <li>Although partial pivoting prevents exact zero pivots, <strong>very small (near-zero) pivot elements</strong> can still lead to numerical instability due to large multipliers in the <code>L</code> matrix.</li>
+  <li>The algorithm is designed for <strong>dense matrices</strong>; very large systems may require optimized or sparse LU methods to reduce memory usage and computational cost.</li>
+  <li>Only <strong>partial pivoting</strong> is implemented. Full pivoting (row + column swaps) is not supported, which may be necessary for highly ill-conditioned matrices.</li>
+  <li>The solver assumes the matrix is square (<code>n × n</code>) and will not work for non-square or singular matrices without modification.</li>
+</ul>
+
+      <h3>1.7 References</h3>
+      <ul class="small">
+        <li>StatLect: LU Decomposition — https://www.statlect.com/matrix-algebra/LU-decomposition</li>
+        <li>GeeksforGeeks: LU Decomposition — https://www.geeksforgeeks.org/lu-decomposition-of-a-matrix/</li>
+        <li>MathWorld: LU Decomposition — https://mathworld.wolfram.com/LUDecomposition.html</li>
+      </ul>
+
+      <hr />
+
+<!-- Algorithm Section -->
+<h2 id="algorithm">2. Algorithm for LU Decomposition with Partial Pivoting (Doolittle)</h2>
+<p class="muted">
+  This section provides a detailed, step-by-step procedure to perform LU decomposition of a square matrix <code>A</code> 
+  into a lower triangular matrix <code>L</code> (with 1s on its diagonal) and an upper triangular matrix <code>U</code>, 
+  including partial pivoting for numerical stability. The decomposition solves <code>A x = b</code> efficiently.
+</p>
+
+<h3>2.1 Definitions / Legends</h3>
+<ul>
+  <li><code>A</code>: Original n×n coefficient matrix.</li>
+  <li><code>L</code>: Lower triangular matrix with <code>L[i][i] = 1</code> and nonzero elements below the diagonal.</li>
+  <li><code>U</code>: Upper triangular matrix with nonzero elements on and above the diagonal.</li>
+  <li><code>P</code>: Permutation vector or row swap tracker for partial pivoting.</li>
+  <li><code>b</code>: Right-hand side vector in the system <code>A x = b</code>.</li>
+  <li><code>x</code>: Solution vector for <code>A x = b</code>.</li>
+  <li><code>i, j, k</code>: Loop indices representing row, column, and summation indices.</li>
+  <li>Partial pivoting: swapping the current row with the row having the largest absolute value in the current column to avoid division by zero or small pivots.</li>
+</ul>
+
+<h3>2.2 Step-by-Step Algorithm (Doolittle + Partial Pivoting)</h3>
+<pre class="mono">
+Input: Square matrix A[n][n] and vector b[n]
+Output: L[n][n], U[n][n], permutation vector P[n], solution x[n]
+
+Initialize L = zero matrix, U = zero matrix, P = [0,1,...,n-1]
+
+For i = 0 to n-1:
+    # ---------------- Partial Pivoting ----------------
+    Find pivotRow such that |A[pivotRow][i]| is maximum for rows i..n-1
+    If pivotRow != i:
+        Swap rows i and pivotRow in A and b
+        Swap previous L entries L[i][0..i-1] with L[pivotRow][0..i-1]
+        Swap P[i] with P[pivotRow]
+        Log: "Row i+1 swapped with row pivotRow+1 for pivoting"
+
+    # ---------------- Compute U row i ----------------
+    For j = i to n-1:
+        U[i][j] = A[i][j] - Σ_{k=0}^{i-1} L[i][k] * U[k][j]
+        Log each step with computation
+
+    # ---------------- Compute L column i ----------------
+    For j = i+1 to n-1:
+        L[j][i] = (A[j][i] - Σ_{k=0}^{i-1} L[j][k] * U[k][i]) / U[i][i]
+        Log each step with computation
+    Set L[i][i] = 1
+    Log: "Diagonal L[i][i] = 1"
+
+# ---------------- Forward Substitution ----------------
+Solve Ly = b (with permutation applied)
+For i = 0 to n-1:
+    y[i] = b[i] - Σ_{k=0}^{i-1} L[i][k] * y[k]
+
+# ---------------- Back Substitution ----------------
+Solve Ux = y
+For i = n-1 down to 0:
+    x[i] = (y[i] - Σ_{k=i+1}^{n-1} U[i][k] * x[k]) / U[i][i]
+
+Return L, U, P, y, x
+</pre>
+
+<h3>2.3 Explanations of the Steps</h3>
+<ul>
+  <li><strong>Partial Pivoting:</strong> Swapping rows ensures the pivot element <code>U[i][i]</code> is the largest in magnitude in its column, reducing rounding errors and avoiding division by zero.</li>
+  <li><strong>Computing U:</strong> Each element <code>U[i][j]</code> subtracts the sum of previously computed contributions from <code>L[i][k]·U[k][j]</code>.</li>
+  <li><strong>Computing L:</strong> Each element <code>L[j][i]</code> is normalized by the pivot <code>U[i][i]</code>, except the diagonal which is always 1.</li>
+  <li><strong>Forward Substitution:</strong> Solves <code>L y = b</code> starting from the first row, using the known <code>L</code> elements.</li>
+  <li><strong>Back Substitution:</strong> Solves <code>U x = y</code> from the last row up, using the known <code>U</code> elements.</li>
+  <li><strong>Permutation Vector P:</strong> Keeps track of all row swaps, allowing correct mapping of the solution vector <code>x</code> to the original system.</li>
+</ul>
+
+<h3>2.4 Notes</h3>
+<ul>
+  <li>Partial pivoting ensures numerical stability and allows decomposition of matrices that would otherwise fail with naive LU.</li>
+  <li>All operations are component-wise; each <code>L[i][j]</code> and <code>U[i][j]</code> is computed using previously calculated entries.</li>
+  <li>After decomposition, the system <code>A x = b</code> can be solved efficiently for multiple <code>b</code> vectors without recomputing <code>L</code> and <code>U</code>.</li>
+</ul>
+
+      <hr />
+<!-- Sample Problem -->
+<h2 id="sample">3. Sample Problem and Step-by-Step Solution</h2>
+<p>Consider the linear system:</p>
+<pre class="mono">
+A = [[4, 12, -16],
+     [12, 37, -43],
+     [-16, -43, 98]]
+
+b = [1, 2, 3]
+</pre>
+
+<p class="muted">
+  The matrix <code>A</code> is symmetric and positive-definite, so it could also be solved using Cholesky decomposition. 
+  Here, we will use <strong>LU decomposition with partial pivoting</strong> to illustrate the method step by step. 
+</p>
+
+<h3>Step 1: Partial Pivoting</h3>
+<ul>
+  <li>Check the first column for the largest absolute pivot. Swap rows if necessary to avoid small pivots.</li>
+  <li>Repeat for each column as we progress downward.</li>
+</ul>
+
+<h3>Step 2: Compute U (Upper Triangular Matrix)</h3>
+<ul>
+  <li>Compute each <code>U[i][j]</code> using the formula:
+    <code>U[i][j] = A[i][j] - Σ_{k=0}^{i-1} L[i][k]·U[k][j]</code></li>
+  <li>Example (rounded to 4 decimals):
+    <pre class="mono">
+U[1,1] = A[1,1] = 12
+U[1,2] = A[1,2] = 37
+U[1,3] = A[1,3] = -43
+    </pre>
+  </li>
+</ul>
+
+<h3>Step 3: Compute L (Lower Triangular Matrix)</h3>
+<ul>
+  <li>Compute each <code>L[j][i]</code> using the formula:
+    <code>L[j][i] = (A[j][i] - Σ_{k=0}^{i-1} L[j][k]·U[k][i]) / U[i][i]</code></li>
+  <li>Set diagonal elements <code>L[i][i] = 1</code>.</li>
+  <li>Example (rounded to 4 decimals):
+    <pre class="mono">
+L[2,1] = (A[2,1] - L[2,0]*U[0,1]) / U[1,1] = 1.0000
+L[3,1] = (A[3,1] - L[3,0]*U[0,1]) / U[1,1] = -1.3333
+    </pre>
+  </li>
+</ul>
+
+<h3>Step 4: Forward Substitution (Solve Ly = b)</h3>
+<ul>
+  <li>Compute y[0..n-1] using:
+    <code>y[i] = b[i] - Σ_{k=0}^{i-1} L[i][k]·y[k]</code></li>
+  <li>Example (rounded to 4 decimals):
+    <pre class="mono">
+y[1] = b[1] = 2.0000
+y[2] = b[2] - L[2,1]*y[1] = 0.6667
+    </pre>
+  </li>
+</ul>
+
+<h3>Step 5: Back Substitution (Solve Ux = y)</h3>
+<ul>
+  <li>Compute x[n-1..0] using:
+    <code>x[i] = (y[i] - Σ_{k=i+1}^{n-1} U[i][k]·x[k]) / U[i][i]</code></li>
+  <li>Example (rounded to 4 decimals):
+    <pre class="mono">
+x[3] = y[3] / U[3,3] = 0.0303
+x[2] = (y[2] - U[2,3]*x[3]) / U[2,2] = 0.0712
+x[1] = (y[1] - U[1,2]*x[2] - U[1,3]*x[3]) / U[1,1] = 0.1952
+    </pre>
+  </li>
+</ul>
+
+<h3>Step 6: Summary of Matrices and Solution</h3>
+<pre class="mono">
+L (Lower Triangular):
+[1.0000, 0.0000, 0.0000]
+[0.3333, 1.0000, 0.0000]
+[-1.3333, 0.5000, 1.0000]
+
+U (Upper Triangular):
+[12.0000, 37.0000, -43.0000]
+[0.0000, 3.6667, -0.6670]
+[0.0000, 0.0000, 2.3030]
+
+y (Intermediate vector from Ly=b):
+[2.0000, 0.6667, 0.3030]
+
+x (Solution vector from Ux=y):
+[0.1952, 0.0712, 0.0303]
+</pre>
+
+<p class="muted">
+Use the interactive Web Solver below to enter different matrices and vectors. 
+The computation logs will show all sums, products, and steps rounded to 4 decimals for clarity.
+</p>
+<hr />
+
+      <!-- Web Solver -->
+      <h2 id="webapp">4. Interactive LU Decomposition Solver</h2>
+      <p class="muted">Input a square matrix <code>A</code> and a vector <code>b</code>. This page uses the Doolittle LU solver (no pivoting).</p>
+      <div style="margin-top:12px; max-width:500px;">
+        <label for="matrixA">Matrix A (rows: newline, columns: space-separated)</label>
+        <textarea id="matrixA" rows="6">4 12 -16
+12 37 -43
+-16 -43 98</textarea>
+
+        <label for="vectorB">Vector b (space-separated)</label>
+        <input id="vectorB" value="1 2 3" />
+
+        <div style="margin-top:10px">
+          <button id="runBtn">Compute LU Decomposition</button>
+        </div>
+
+        <div id="messages"></div>
+
+        <div id="resultArea" class="results" aria-live="polite"></div>
+      </div>
+
+      <hr />
+
+<!-- Download Section -->
+<h2 id="download">5. Download and Run the Python Application</h2>
+<p>The Python Tkinter app allows you to run the same LU Decomposition solver locally on your computer, with the same functionality as the web version.</p>
+
+<div class="card card-compact">
+  <h4>Step-by-Step Instructions</h4>
+  <ol>
+    <li>
+      <strong>Install Python:</strong> Make sure you have <a href="https://www.python.org/downloads/" target="_blank">Python 3.8 or newer</a> installed on your computer. Follow the installer instructions for your operating system.
+    </li>
+    <li>
+      <strong>Install NumPy:</strong> Open your Command Prompt (Windows) or Terminal (Mac/Linux) and type:
+      <pre><code>pip install numpy</code></pre>
+    </li>
+    <li>
+      <strong>Download the Python file:</strong> Click the button below to download <code>LU_solver.py</code> to a folder on your computer.
+    </li>
+    <li>
+      <strong>Run the application:</strong> Open Command Prompt/Terminal, navigate to the folder where you downloaded <code>LU_solver.py</code>, and type:
+      <pre><code>python LU_solver.py</code></pre>
+      Press Enter, and the application window will appear for inputting matrices and computing the LU Decomposition.
+    </li>
+    <li>
+      <strong>Using the app:</strong> Enter your matrix values, press "Solve", and the solution with computational steps will appear.
+    </li>
+  </ol>
+
+  <div style="margin-top:10px">
+    <button id="downloadPy">Download LU_solver.py</button>
+  </div>
+
+  <h4 style="margin-top:20px;">Advantages of the Python Version</h4>
+  <ul>
+    <li>Run the solver locally without opening a browser.</li>
+    <li>Python code is readable and can be easily studied or modified.</li>
+    <li>Easy to share as a standalone file.</li>
+  </ul>
+
+  <h4>Disadvantages of the Python Version</h4>
+  <ul>
+    <li>Requires Python and NumPy installation.</li>
+  </ul>
+</div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>CSM 316 Numerical Methods for Computer Science</strong><br>
+    LU Decomposition Application<br><br>
+    Developed by: Zeus Erese • Miguel Magno • Niña Padua •
+    Hannah Parayno • CJ Quitaneg • Jasmine Rollon
+  </footer>
+
+  <script src="solver.js"></script>
+</body>
+</html>

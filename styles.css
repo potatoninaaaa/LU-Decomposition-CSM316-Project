@@ -160,8 +160,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-    width: 400px;
+    width: 470px;
   height: 480px;
+  margin-top: 100px;
 }
 
 /* FULL-WIDTH MATH FORMULATION */
@@ -342,7 +343,6 @@ body {
     padding-bottom: 0;
     margin-bottom: 10px;
 }
-
 
 
 .algorithm-text p,

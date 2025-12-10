@@ -6,25 +6,22 @@ const modal = document.getElementById('sampleModal');
 const openBtn = document.getElementById('openSampleModal');
 const closeBtn = document.getElementById('closeSampleModal');
 
-if (openBtn) {
-  openBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.style.display = 'block';
-  });
-}
+openBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  modal.classList.add('show');  // show modal
+});
 
-if (closeBtn) {
-  closeBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.style.display = 'none';
-  });
-}
+closeBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  modal.classList.remove('show');  // hide modal
+});
 
 window.addEventListener('click', (e) => {
   if (e.target === modal) {
-    modal.style.display = 'none';
+    modal.classList.remove('show'); // hide modal if click outside box
   }
 });
+
 
 // ================= VALIDATION + PARSING =================
 
@@ -229,5 +226,30 @@ if (downloadBtn) {
       .catch(err => alert("Error downloading file: " + err));
   });
 }
+
+// Create the back-to-top button
+const backToTopBtn = document.createElement('button');
+backToTopBtn.id = 'backToTop';
+backToTopBtn.className = 'back-to-top';
+backToTopBtn.innerHTML = '↑';
+backToTopBtn.setAttribute('title', 'Back to top');
+document.body.appendChild(backToTopBtn);
+
+// Show/hide button based on scroll position
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 300) {
+    backToTopBtn.classList.add('show');
+  } else {
+    backToTopBtn.classList.remove('show');
+  }
+});
+
+// Scroll to top when clicked
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
 
 });

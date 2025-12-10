@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <title>LU Decomposition</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js"></script>
 </head>
 <body>
 
 <header class="topbar">
   <div class="left">CSM316 FINAL PROJECT</div>
   <nav class="right">
-    <a href="#">Theory</a>
-    <a href="#">Algorithm</a>
-    <a href="#">Web Solver</a>
-    <a href="#" class="active">Download</a>
+    <a href="#theory-section">Theory</a>
+    <a href="#algorithm-section">Algorithm</a>
+    <a href="#solver-section">Web Solver</a>
+    <a href="#download-section" class="active">Download</a>
   </nav>
 </header>
 
@@ -23,7 +24,7 @@
     <div class="title">DECOMPOSITION</div>
   </div>
 </main>
-<section class="theory-section">
+<section class="theory-section" id="theory-section">
   <div class="theory-container">
 
     <!-- LEFT TEXT + IMAGE GRID -->
@@ -105,7 +106,7 @@ Set lᵢᵢ = 1
 </section>
 
 
-<section class="solver-section">
+<section class="solver-section" id="solver-section">
   <div class="solver-container">
     <h2 class="section-title">LU Decomposition Calculator</h2>
     <p class="solver-muted">
@@ -132,7 +133,7 @@ Set lᵢᵢ = 1
 
 
 
-<section class="algorithm-section" id="algorithm">
+<section class="algorithm-section" id="algorithm-section">
   <div class="algorithm-container">
     <h2 class="section-title">Algorithm for LU Decomposition </h2> 
     <h3 class="section-subtitle"> With Partial Pivoting (Doolittle)</h3>
@@ -302,7 +303,7 @@ The computation logs will show all operations rounded to 4 decimals.
 </div>
 
 
-<section class="download-section">
+<section class="download-section" id="download-section">
   <div class="algorithm-container">
     <!-- Download Section -->
     <h2 id="download" class="section-title">Download and Run the Python Application</h2>

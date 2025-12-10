@@ -403,3 +403,282 @@ footer {
     .small { font-size: 0.95rem; }
     header nav a { margin-right: 12px; }
     .card { padding: 16px; border-radius: 8px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+
+
+    /* ======================================
+   DESIGN SYSTEM
+====================================== */
+:root {
+  --primary: #0b3c5d;
+  --primary-dark: #082f49;
+  --accent: #f2a900;
+
+  --bg: #f4f6f9;
+  --card-bg: #ffffff;
+  --text: #1f2933;
+  --muted: #5f6c7b;
+
+  --border: #e2e8f0;
+  --code-bg: #111827;
+
+  --radius: 12px;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* ======================================
+   RESET / BASE
+====================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* ======================================
+   HEADER
+====================================== */
+header {
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  padding: 22px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+}
+
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+nav {
+  display: flex;
+  gap: 18px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+  opacity: 1;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* ======================================
+   MAIN LAYOUT
+====================================== */
+.container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.content-card {
+  background: var(--card-bg);
+  padding: 44px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+/* ======================================
+   HEADINGS
+====================================== */
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+  color: var(--primary);
+  border-left: 6px solid var(--accent);
+  padding-left: 14px;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  color: var(--primary-dark);
+}
+
+h4 {
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+/* ======================================
+   TEXT ELEMENTS
+====================================== */
+p {
+  margin-bottom: 16px;
+}
+
+ul, ol {
+  margin-left: 22px;
+  margin-bottom: 18px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.9rem;
+}
+
+code {
+  background: #eef2f7;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+/* ======================================
+   CODE BLOCKS
+====================================== */
+pre.mono {
+  background: var(--code-bg);
+  color: #e5e7eb;
+  padding: 20px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin: 20px 0;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ======================================
+   DIAGRAM
+====================================== */
+.diagram {
+  margin: 24px auto;
+  text-align: center;
+}
+
+/* ======================================
+   FORMS / SOLVER
+====================================== */
+label {
+  margin-top: 14px;
+  display: block;
+  font-weight: 500;
+}
+
+textarea,
+input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  font-family: monospace;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+button {
+  margin-top: 14px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+/* ======================================
+   OUTPUT AREA
+====================================== */
+.results {
+  margin-top: 24px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  padding: 20px;
+  border-radius: var(--radius);
+  font-family: monospace;
+  white-space: pre-wrap;
+  min-height: 220px;
+}
+
+/* ======================================
+   CARDS (DOWNLOAD SECTION)
+====================================== */
+.card {
+  background: #f9fafb;
+  padding: 28px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+/* ======================================
+   HORIZONTAL RULE
+====================================== */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 48px 0;
+}
+
+/* ======================================
+   FOOTER
+====================================== */
+footer {
+  text-align: center;
+  margin-top: 60px;
+  padding: 28px;
+  font-size: 0.85rem;
+  background: var(--primary-dark);
+  color: #e5e7eb;
+}
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .content-card {
+    padding: 28px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+  }
+}

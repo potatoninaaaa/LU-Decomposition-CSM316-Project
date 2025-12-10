@@ -1,0 +1,226 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== COLORS ===== */
+:root {
+  --bg: #365b61;
+  --text: #e8e8e2;
+  --muted: #d6d6d0;
+}
+
+/* ===== BODY ===== */
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 40px;
+}
+
+/* Left title */
+.topbar .left {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+}
+
+/* Nav */
+.topbar nav {
+  display: flex;
+  gap: 36px;
+}
+
+.topbar nav a {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.topbar nav a.active {
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center content */
+.hero-content {
+  text-align: center;
+  transform: translateY(-40px);
+}
+
+/* LU text */
+.lu {
+  font-family: "Poppins", sans-serif;
+  font-size: 210px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: -40px;
+  color: var(--muted);
+}
+
+/* Decomposition text */
+.title {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 130px;
+  font-weight: 400;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* ===== THEORY SECTION ===== */
+.theory-section {
+  background: #e6e6e3;
+  padding: 100px 80px;
+  color: #2f4f54;
+}
+
+.theory-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+/* Headings */
+.section-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 76px;
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 40px;
+}
+
+/* Paragraphs */
+.theory-text p {
+  font-size: 20px;
+  line-height: 1.8;
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+/* Theory blocks */
+.theory-block {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: #d8dcd9;
+  border-radius: 14px;
+}
+
+.theory-block h3 {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.theory-block pre {
+  font-size: 15px;
+  line-height: 1.6;
+  background: #cfd5d1;
+  padding: 16px;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.theory-block ul {
+  margin-left: 20px;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* Warning block */
+.theory-block.warning {
+  background: #94b4b9;
+}
+
+/* Right column */
+.theory-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.theory-image img {
+  width: 380px;
+  height: 420px;
+  object-fit: cover;
+}
+
+.read-more {
+  margin-top: 40px;
+  background: #355a60;
+  color: white;
+  border: none;
+  padding: 16px 38px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* ===== ALGORITHM SECTION ===== */
+.algorithm-section {
+  background: #f3f3f1;
+  padding: 90px 80px;
+  color: #2f4f54;
+}
+
+.algorithm-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Algorithm text */
+
+.algorithm-section {
+  background: #e6e6e3;
+  padding: 90px 80px;
+  padding-top: 0px;
+  color: #2f4f54;
+
+}
+
+.algorithm-text .section-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 68px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+
+.algorithm-text p {
+  font-size: 20px;
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+
+/* Legends block */
+.algorithm-text .subtext {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: #94b4b9;
+  border-radius: 12px;
+  font-size: 18px;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LU Decomposition</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="left">CSM316 FINAL PROJECT</div>
+  <nav class="right">
+    <a href="#">Theory</a>
+    <a href="#">Algorithm</a>
+    <a href="#">Web Solver</a>
+    <a href="#" class="active">Download</a>
+  </nav>
+</header>
+
+<main class="hero">
+  <div class="hero-content">
+    <div class="lu">LU</div>
+    <div class="title">DECOMPOSITION</div>
+  </div>
+</main>
+
+<section class="theory-section">
+  <div class="theory-container">
+
+    <!-- LEFT: MAIN THEORY TEXT -->
+    <div class="theory-text">
+      <h2 class="section-title">
+        I. Theory of LU<br>
+        Decomposition
+      </h2>
+
+      <p>
+        LU Decomposition is an elimination-based technique for factoring a square
+        matrix A into the product of a lower triangular matrix L and an upper
+        triangular matrix U: A = L · U. It is widely used to solve linear systems,
+        compute matrix inverses, and numerical methods where the same coefficient
+        matrix is reused with different right-hand-side vectors.
+      </p>
+
+      <p>
+        In the Doolittle variant, the matrix L has ones on its diagonal and nonzero
+        entries below the diagonal, while U contains the pivot elements on and
+        above the diagonal.
+      </p>
+
+      <div class="theory-block">
+        <h3>Mathematical Formulation</h3>
+        <pre>
+For i = 0 to n−1:
+  For j = i to n−1:
+    uᵢⱼ = aᵢⱼ − Σ lᵢₖuₖⱼ
+
+  For j = i+1 to n−1:
+    lⱼᵢ = (aⱼᵢ − Σ lⱼₖuₖᵢ) / uᵢᵢ
+
+Set lᵢᵢ = 1
+        </pre>
+      </div>
+
+      <div class="theory-block">
+        <h3>Important Notes</h3>
+        <ul>
+          <li>LU without pivoting requires nonzero leading pivots.</li>
+          <li>Partial pivoting improves numerical stability.</li>
+          <li>With pivoting, the decomposition is written as P·A = L·U.</li>
+        </ul>
+      </div>
+
+      <div class="theory-block warning">
+        <h3>Limitations</h3>
+        <ul>
+          <li>Near-zero pivots may still cause instability.</li>
+          <li>Designed for dense square matrices only.</li>
+          <li>Full pivoting is not implemented.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RIGHT: VISUAL -->
+    <div class="theory-image">
+      <img src="https://via.placeholder.com/380x420" alt="LU Illustration">
+      <button class="read-more">Read More</button>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="algorithm-section">
+  <div class="algorithm-container">
+
+    <div class="algorithm-text">
+      <h2 class="section-title">
+        II. Algorithm for LU Decomposition with Partial Pivoting (Doolittle)
+      </h2>
+
+      <p class="subtext">
+        <strong>Definitions / Legends</strong><br>
+A: Original n×n coefficient matrix.
+L: Lower triangular matrix with L[i][i] = 1 and nonzero elements below the diagonal.
+U: Upper triangular matrix with nonzero elements on and above the diagonal.
+P: Permutation vector or row swap tracker for partial pivoting.
+b: Right-hand side vector in the system A x = b.
+x: Solution vector for A x = b.
+i, j, k: Loop indices representing row, column, and summation indices.
+Partial pivoting: swapping the current row with the row having the largest absolute value in the current column to avoid division by zero or small pivots.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+</body>
+</html>

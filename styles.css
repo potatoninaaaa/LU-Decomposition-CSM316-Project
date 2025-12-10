@@ -323,8 +323,33 @@ body {
   font-size: 76px;            
   font-weight: 800;
   line-height: 1.05;
-  text-align: center;
-  
+  justify-content: center !important;
+    margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-subtitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 36px;            
+  font-weight: 800;
+  line-height: 1.05;
+  justify-content: center !important;
+  margin-left: auto;
+  margin-right: auto;
+   margin-top: -30px;  /* Add this to remove space */
+    padding-bottom: 0;
+    margin-bottom: 10px;
+}
+
+
+
+.algorithm-text p,
+.algorithm-text .subtext,
+.algorithm-steps {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Paragraphs */
@@ -333,6 +358,7 @@ body {
   line-height: 1.8;
   max-width: 1100px;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 /* Legends block */
@@ -368,30 +394,34 @@ body {
   color: #dcdcdc;            
   font-family: 'Courier New', Courier, monospace;
   font-size: 16px;
-  line-height: 1.8;             /* match paragraph line-height */
-  padding: 28px 32px;           /* same padding as theory blocks */
+  line-height: 1.8;         
+  padding: 28px 32px;           
   border-radius: 12px;
   overflow-x: auto;
   white-space: pre-wrap;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   border-left: 6px solid #355a60;
-  margin-top: 40px;             /* same spacing between sections */
+  margin-top: 10px;            
 }
 
-/* Cards container for explanations */
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;                    /* increase gap to match section spacing */
-  margin-top: 40px;             /* same as theory blocks spacing */
+  gap: 40px;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  min-height: 240px; /* ensure equal card height */
   background: #d8dcd9;
-  padding: 28px 32px;           /* same padding as theory blocks */
-  border-radius: 12px;
+   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 28px 32px;  
 }
+
 
 .card h4 {
   font-size: 20px;              /* match theory block headings */
@@ -401,4 +431,347 @@ body {
 .card p {
   font-size: 20px;              /* same as theory paragraph font-size */
   line-height: 1.8;
+}
+ .sample-btn-container {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .sample-btn {
+      background: #355a60;
+      color: white;
+      padding: 14px 32px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .sample-btn:hover {
+      background: #264247;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 14px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 18px;
+      top: 10px;
+      font-size: 40px;
+      cursor: pointer;
+      line-height: 1;
+      color: #999;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: #333;
+    }
+
+    .modal-content pre {
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+
+    .modal-content h2 {
+      color: #355a60;
+      margin-bottom: 20px;
+    }
+
+    /* ===== DOWNLOAD SECTION ===== */
+.download-section {
+  background: #e6e6e3;
+  padding: 100px 80px;
+  color: #2f4f54;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.download-section .algorithm-container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Section title */
+.download-section .section-title {
+  font-family: 'Arial, Helvetica', sans-serif;
+  font-size: 76px;
+  font-weight: 800;
+  line-height: 1.05;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Paragraphs */
+.download-section p {
+  font-size: 20px;
+  line-height: 1.8;
+  max-width: 1100px;
+  margin: 0 auto 20px auto;
+  text-align: justify;
+}
+
+/* Step-by-step card */
+.download-section .card {
+  background: #d8dcd9;
+  padding: 28px 32px;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  margin-top: 40px;
+}
+
+.download-section .card h4 {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.download-section .card ol {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-left: 20px;
+}
+
+.download-section .card ol li {
+  margin-bottom: 16px;
+}
+
+.download-section .card ol li pre {
+  background: #cfd5d1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+/* Download button */
+.download-section .sample-btn-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.download-section .sample-btn {
+  background: #355a60;
+  color: white;
+  padding: 14px 32px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.download-section .sample-btn:hover {
+  background: #264247;
+}
+
+/* Advantages / Disadvantages lists */
+.download-section ul {
+  margin-left: 20px;
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+
+
+
+/* ======================= */
+/* GLOBAL FADE + SLIDE-IN  */
+/* ======================= */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Smooth upward reveal */
+.slide-up {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: slideUp 1.4s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ======================= */
+/* HERO TEXT ANIMATION     */
+/* ======================= */
+.lu {
+  animation: heroPop 1.8s ease-out forwards;
+  transform-origin: center;
+}
+
+@keyframes heroPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.title {
+  opacity: 0;
+  animation: titleReveal 1.6s ease-out 0.6s forwards;
+}
+
+@keyframes titleReveal {
+  0% {
+    opacity: 0;
+    letter-spacing: 20px;
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 6px;
+  }
+}
+
+/* ======================= */
+/* NAV LINK HOVER GLOW     */
+/* ======================= */
+.topbar nav a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.topbar nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background: var(--text);
+  transition: 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.topbar nav a:hover::after {
+  width: 60%;
+}
+
+/* ======================= */
+/* SOFT FLOAT ON CARDS     */
+/* ======================= */
+.card,
+.theory-block,
+.solver-card {
+  animation: floatIn 1.4s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover lift */
+.card:hover,
+.theory-block:hover,
+.solver-card:hover {
+  transform: translateY(-6px);
+  transition: 0.3s ease;
+}
+
+/* ======================= */
+/* SUBTLE IMAGE FLOATING   */
+/* ======================= */
+.theory-image {
+  animation: imageFloat 5s ease-in-out infinite;
+}
+
+@keyframes imageFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ======================= */
+/* BUTTON PRESS ANIMATION  */
+/* ======================= */
+.sample-btn,
+.solver-btn {
+  transition: transform 0.15s ease;
+}
+
+.sample-btn:active,
+.solver-btn:active {
+  transform: scale(0.95);
+}
+
+/* ======================= */
+/* SECTION SCROLL REVEALS  */
+/* (auto reveal on load)   */
+/* ======================= */
+.theory-section,
+.solver-section,
+.algorithm-section,
+.download-section {
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out forwards;
 }

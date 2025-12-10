@@ -124,7 +124,8 @@ Set lᵢᵢ = 1
 
 <section class="algorithm-section" id="algorithm">
   <div class="algorithm-container">
-    <h2 class="section-title">Algorithm for LU Decomposition with Partial Pivoting (Doolittle)</h2>
+    <h2 class="section-title">Algorithm for LU Decomposition </h2> 
+    <h3 class="section-subtitle"> With Partial Pivoting (Doolittle)</h3>
 
     <div class="algorithm-text">
       <p>
@@ -145,7 +146,7 @@ Set lᵢᵢ = 1
 </div>
 
 
-      <h3 style="font-size: 20px; margin: 40px 0 20px 0; font-weight: 700;">Step-by-Step Algorithm (Doolittle + Partial Pivoting)</h3>
+      <h3 style="font-size: 20px; margin: 10px 0 20px 0; font-weight: 700;">Step-by-Step Algorithm (Doolittle + Partial Pivoting)</h3>
 
       <div class="algorithm-steps">Input: Square matrix A[n][n] and vector b[n]
 Output: L[n][n], U[n][n], permutation vector P[n], solution x[n]
@@ -214,6 +215,127 @@ Return L, U, P, y, x</div>
 
 
       <p style="margin-top: 60px;"><strong>Key Notes:</strong> Partial pivoting ensures numerical stability and allows decomposition of matrices that would otherwise fail with naive LU. All operations are component-wise; each L[i][j] and U[i][j] is computed using previously calculated entries. After decomposition, the system A x = b can be solved efficiently for multiple b vectors without recomputing L and U.</p>
+    <!-- SHOW SAMPLE BUTTON -->
+<div class="sample-btn-container">
+  <button id="openSampleModal" class="sample-btn">View Sample Problem & Solution</button>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<div id="sampleModal" class="modal-overlay">
+  <div class="modal-box">
+    <span id="closeSampleModal" class="modal-close">&times;</span>
+    <div class="modal-content">
+      <h2>Sample Problem and Step-by-Step Solution</h2>
+      <pre>
+A = [[4, 12, -16],
+     [12, 37, -43],
+     [-16, -43, 98]]
+
+b = [1, 2, 3]
+
+The matrix A is symmetric and positive-definite, so it could also be solved 
+using Cholesky decomposition. Here, we will use LU decomposition with partial 
+pivoting to illustrate the method step by step.
+
+Step 1: Partial Pivoting  
+- Check the first column for the largest absolute pivot. Swap rows if needed.  
+- Repeat for each column.
+
+Step 2: Compute U  
+U[i][j] = A[i][j] - Σ L[i][k]·U[k][j]
+
+Example:
+U[1,1] = 12  
+U[1,2] = 37  
+U[1,3] = -43  
+
+Step 3: Compute L  
+L[j][i] = (A[j][i] - Σ L[j][k]·U[k][i]) / U[i][i]  
+Set diagonal L[i][i] = 1.
+
+Example:
+L[2,1] = 1.0000  
+L[3,1] = -1.3333  
+
+Step 4: Forward Substitution (Ly = b)  
+y[1] = 2.0000  
+y[2] = 0.6667  
+
+Step 5: Back Substitution (Ux = y)  
+x[3] = 0.0303  
+x[2] = 0.0712  
+x[1] = 0.1952  
+
+Step 6: Summary
+
+L =
+[1.0000, 0.0000, 0.0000]
+[0.3333, 1.0000, 0.0000]
+[-1.3333, 0.5000, 1.0000]
+
+U =
+[12.0000, 37.0000, -43.0000]
+[0.0000, 3.6667, -0.6670]
+[0.0000, 0.0000, 2.3030]
+
+y = [2.0000, 0.6667, 0.3030]  
+x = [0.1952, 0.0712, 0.0303]
+
+Use the interactive Web Solver below to enter different matrices and vectors. 
+The computation logs will show all operations rounded to 4 decimals.
+      </pre>
+    </div>
+  </div>
+</div>
+
+
+<section class="download-section">
+  <div class="algorithm-container">
+    <!-- Download Section -->
+    <h2 id="download" class="section-title">Download and Run the Python Application</h2>
+    <p>The Python Tkinter app allows you to run the same LU Decomposition solver locally on your computer, with the same functionality as the web version.</p>
+
+    <div class="card card-compact" style="margin-top: 40px;">
+      <h4>Step-by-Step Instructions</h4>
+      <ol>
+        <li>
+          <strong>Install Python:</strong> Make sure you have <a href="https://www.python.org/downloads/" target="_blank">Python 3.8 or newer</a> installed on your computer. Follow the installer instructions for your operating system.
+        </li>
+        <li>
+          <strong>Install NumPy:</strong> Open your Command Prompt (Windows) or Terminal (Mac/Linux) and type:
+          <pre><code>pip install numpy</code></pre>
+        </li>
+        <li>
+          <strong>Download the Python file:</strong> Click the button below to download <code>LU_solver.py</code> to a folder on your computer.
+        </li>
+        <li>
+          <strong>Run the application:</strong> Open Command Prompt/Terminal, navigate to the folder where you downloaded <code>LU_solver.py</code>, and type:
+          <pre><code>python LU_solver.py</code></pre>
+          Press Enter, and the application window will appear for inputting matrices and computing the LU Decomposition.
+        </li>
+        <li>
+          <strong>Using the app:</strong> Enter your matrix values, press "Solve", and the solution with computational steps will appear.
+        </li>
+      </ol>
+
+      <div style="margin-top:10px;">
+        <button id="downloadPy" class="sample-btn">Download LU_solver.py</button>
+      </div>
+
+      <h4 style="margin-top:20px;">Advantages of the Python Version</h4>
+      <ul>
+        <li>Run the solver locally without opening a browser.</li>
+        <li>Python code is readable and can be easily studied or modified.</li>
+        <li>Easy to share as a standalone file.</li>
+      </ul>
+
+      <h4>Disadvantages of the Python Version</h4>
+      <ul>
+        <li>Requires Python and NumPy installation.</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -221,3 +343,4 @@ Return L, U, P, y, x</div>
 
 </body>
 </html>
+

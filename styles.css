@@ -80,7 +80,7 @@ body {
 
 /* Decomposition text */
 .title {
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Poppins", Times, serif;
   font-size: 130px;
   font-weight: 400;
   letter-spacing: 6px;
@@ -119,6 +119,7 @@ body {
   line-height: 1.8;
   max-width: 760px;
   margin-bottom: 28px;
+  text-align: justify;
 }
 
 /* Theory blocks */
@@ -159,68 +160,245 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+    width: 400px;
+  height: 480px;
 }
 
-.theory-image img {
-  width: 380px;
-  height: 420px;
-  object-fit: cover;
+/* FULL-WIDTH MATH FORMULATION */
+.theory-fullwidth {
+  max-width: 1300px;
+  margin: 0px auto 20px auto;
 }
 
-.read-more {
-  margin-top: 40px;
+.math-block {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* TWO-COLUMN NOTES + LIMITATIONS */
+.theory-two-col {
+  max-width: 1300px;
+  margin: 10px auto 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+
+/* ===== SOLVER SECTION ===== */
+.solver-section {
+  background: #e6e6e3;
+  padding: 100px 80px;
+  color: #2f4f54;
+  margin-top: 0;
+
+  display: flex;              
+  justify-content: center;     
+  padding-top: 0;
+}
+
+.solver-container {
+  max-width: 1100px;
+  width: 100%;               
+  margin: 0 auto;              
+  text-align: center;          
+}
+
+.solver-card {
+  margin-left: auto;           
+  margin-right: auto;          
+}
+
+/* Heading matches theory style */
+.solver-section .section-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 76px;
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 30px;
+}
+
+/* Subtext */
+.solver-muted {
+  font-size: 20px;
+  color: #445c60;
+  margin-bottom: 40px;
+  max-width: 760px;
+  line-height: 1.8;
+    margin-left: auto;           
+  margin-right: auto;      
+}
+
+/* Card wrapper (matches theory-block style but for forms) */
+.solver-card {
+  background: #d8dcd9;
+  padding: 32px 36px;
+  border-radius: 14px;
+  max-width: 650px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Labels */
+.solver-card label {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Inputs, textarea styling (consistent UI look) */
+.solver-card textarea,
+.solver-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 2px solid #b6beb9;
+  background: #f0f2f0;
+  font-size: 17px;
+  font-family: "Poppins", sans-serif;
+  color: #2f4f54;
+}
+
+/* Button style consistent with read-more button style */
+.solver-btn {
+  margin-top: 10px;
   background: #355a60;
   color: white;
   border: none;
-  padding: 16px 38px;
+  padding: 16px 32px;
   border-radius: 999px;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
+  align-self: center;
+  transition: 0.2s ease;
 }
+
+.solver-btn:hover {
+  background: #264348;
+}
+
+/* Messages (errors/warnings) */
+.solver-messages {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #a7422c;
+  font-weight: 600;
+}
+
+/* Results box (matches code block feel but brighter) */
+.solver-results {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: #cfd5d1;
+  border-left: 6px solid #355a60;
+  border-radius: 10px;
+  font-family: "Courier New", monospace;
+  color: #2b3b3d;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
 
 
 /* ===== ALGORITHM SECTION ===== */
 .algorithm-section {
-  background: #f3f3f1;
-  padding: 90px 80px;
+  background: #e6e6e3;        
+  padding: 100px 80px;          
   color: #2f4f54;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .algorithm-container {
-  max-width: 1000px;
+  max-width: 1300px;          
   margin: 0 auto;
 }
 
-/* Algorithm text */
-
-.algorithm-section {
-  background: #e6e6e3;
-  padding: 90px 80px;
-  padding-top: 0px;
-  color: #2f4f54;
-
-}
-
+/* Section title */
 .algorithm-text .section-title {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 68px;
+  font-size: 76px;            
   font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 32px;
+  line-height: 1.05;
+  text-align: center;
+  
 }
 
+/* Paragraphs */
 .algorithm-text p {
   font-size: 20px;
-  line-height: 1.75;
-  margin-bottom: 28px;
+  line-height: 1.8;
+  max-width: 1100px;
+  margin-bottom: 10px;
 }
 
 /* Legends block */
 .algorithm-text .subtext {
-  margin-top: 40px;
-  padding: 28px 32px;
-  background: #94b4b9;
+  margin-top: 10px;
+  padding: 28px 32px;           
   border-radius: 12px;
   font-size: 18px;
+  line-height: 1.7;            
+}
+
+.legend-list {
+  list-style: none;          
+  padding-left: 0;
+  margin-top: 5px;
+  font-size: 18px;          
+  line-height: 1.7;          
+}
+
+.legend-list li {
+  margin-bottom: 12px;
+}
+
+.legend-list .first-letter {
+  font-weight: 700;          
+  margin-right: 4px;         
+}
+
+
+/* Algorithm steps (code block) */
+.algorithm-steps {
+  background-color: #1e1e2f; 
+  color: #dcdcdc;            
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  line-height: 1.8;             /* match paragraph line-height */
+  padding: 28px 32px;           /* same padding as theory blocks */
+  border-radius: 12px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #355a60;
+  margin-top: 40px;             /* same spacing between sections */
+}
+
+/* Cards container for explanations */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;                    /* increase gap to match section spacing */
+  margin-top: 40px;             /* same as theory blocks spacing */
+}
+
+.card {
+  background: #d8dcd9;
+  padding: 28px 32px;           /* same padding as theory blocks */
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card h4 {
+  font-size: 20px;              /* match theory block headings */
+  margin-bottom: 16px;
+}
+
+.card p {
+  font-size: 20px;              /* same as theory paragraph font-size */
+  line-height: 1.8;
 }

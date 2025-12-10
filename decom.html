@@ -23,14 +23,13 @@
     <div class="title">DECOMPOSITION</div>
   </div>
 </main>
-
 <section class="theory-section">
   <div class="theory-container">
 
-    <!-- LEFT: MAIN THEORY TEXT -->
+    <!-- LEFT TEXT + IMAGE GRID -->
     <div class="theory-text">
       <h2 class="section-title">
-        I. Theory of LU<br>
+        Theory of LU<br>
         Decomposition
       </h2>
 
@@ -47,10 +46,19 @@
         entries below the diagonal, while U contains the pivot elements on and
         above the diagonal.
       </p>
+    </div>
 
-      <div class="theory-block">
-        <h3>Mathematical Formulation</h3>
-        <pre>
+    <div class="theory-image">
+      <img src="https://via.placeholder.com/380x420" alt="LU Illustration">
+    </div>
+
+  </div> <!-- end of grid -->
+
+  <!-- FULL-WIDTH MATH FORMULATION (CENTERED) -->
+  <div class="theory-fullwidth">
+    <div class="theory-block math-block">
+      <h3>Mathematical Formulation</h3>
+      <pre>
 For i = 0 to n−1:
   For j = i to n−1:
     uᵢⱼ = aᵢⱼ − Σ lᵢₖuₖⱼ
@@ -59,60 +67,154 @@ For i = 0 to n−1:
     lⱼᵢ = (aⱼᵢ − Σ lⱼₖuₖᵢ) / uᵢᵢ
 
 Set lᵢᵢ = 1
-        </pre>
-      </div>
+      </pre>
+    </div>
+  </div>
 
-      <div class="theory-block">
-        <h3>Important Notes</h3>
-        <ul>
-          <li>LU without pivoting requires nonzero leading pivots.</li>
-          <li>Partial pivoting improves numerical stability.</li>
-          <li>With pivoting, the decomposition is written as P·A = L·U.</li>
-        </ul>
-      </div>
-
-      <div class="theory-block warning">
-        <h3>Limitations</h3>
-        <ul>
-          <li>Near-zero pivots may still cause instability.</li>
-          <li>Designed for dense square matrices only.</li>
-          <li>Full pivoting is not implemented.</li>
-        </ul>
-      </div>
+  <!-- TWO-COLUMN NOTES + LIMITATIONS -->
+  <div class="theory-two-col">
+    <div class="theory-block">
+      <h3>Important Notes</h3>
+      <ul>
+        <li>LU without pivoting requires nonzero leading pivots.</li>
+        <li>Partial pivoting improves numerical stability.</li>
+        <li>With pivoting, the decomposition is written as P·A = L·U.</li>
+      </ul>
     </div>
 
-    <!-- RIGHT: VISUAL -->
-    <div class="theory-image">
-      <img src="https://via.placeholder.com/380x420" alt="LU Illustration">
-      <button class="read-more">Read More</button>
+    <div class="theory-block warning">
+      <h3>Limitations</h3>
+      <ul>
+        <li>Near-zero pivots may still cause instability.</li>
+        <li>Designed for dense square matrices only.</li>
+        <li>Full pivoting is not implemented.</li>
+      </ul>
     </div>
+  </div>
 
+</section>
+
+
+<section class="solver-section">
+  <div class="solver-container">
+    <h2 class="section-title">LU Decomposition Calculator</h2>
+    <p class="solver-muted">
+      Input a square matrix A and a vector b. This tool uses the Doolittle LU method (no pivoting).
+    </p>
+
+    <div class="solver-card">
+      <label for="matrixA">Matrix A (rows separated by newline, columns by space)</label>
+      <textarea id="matrixA" rows="6">4 12 -16
+12 37 -43
+-16 -43 98</textarea>
+
+      <label for="vectorB">Vector b (space-separated)</label>
+      <input id="vectorB" value="1 2 3" />
+
+      <button id="runBtn" class="solver-btn">Compute LU Decomposition</button>
+
+      <div id="messages" class="solver-messages"></div>
+      <div id="resultArea" class="solver-results"></div>
+    </div>
   </div>
 </section>
 
 
 
-<section class="algorithm-section">
+
+<section class="algorithm-section" id="algorithm">
   <div class="algorithm-container">
+    <h2 class="section-title">Algorithm for LU Decomposition with Partial Pivoting (Doolittle)</h2>
 
     <div class="algorithm-text">
-      <h2 class="section-title">
-        II. Algorithm for LU Decomposition with Partial Pivoting (Doolittle)
-      </h2>
+      <p>
+        This section provides a detailed, step-by-step procedure to perform LU decomposition of a square matrix A into a lower triangular matrix L (with 1s on its diagonal) and an upper triangular matrix U, including partial pivoting for numerical stability. The decomposition solves A x = b efficiently.
+      </p>  
+      <div class="subtext">
+  <strong>Definitions / Legends</strong>
+  <ul class="legend-list">
+    <li><span class="first-letter">A:</span> Original n×n coefficient matrix.</li>
+    <li><span class="first-letter">L:</span> Lower triangular matrix with L[i][i] = 1 and nonzero elements below the diagonal.</li>
+    <li><span class="first-letter">U:</span> Upper triangular matrix with nonzero elements on and above the diagonal.</li>
+    <li><span class="first-letter">P:</span> Permutation vector or row swap tracker for partial pivoting.</li>
+    <li><span class="first-letter">b:</span> Right-hand side vector in the system A x = b.</li>
+    <li><span class="first-letter">x:</span> Solution vector for A x = b.</li>
+    <li><span class="first-letter">i, j, k:</span> Loop indices representing row, column, and summation indices.</li>
+    <li><span class="first-letter">Partial pivoting:</span> Swapping the current row with the row having the largest absolute value in the current column to avoid division by zero or small pivots.</li>
+  </ul>
+</div>
 
-      <p class="subtext">
-        <strong>Definitions / Legends</strong><br>
-A: Original n×n coefficient matrix.
-L: Lower triangular matrix with L[i][i] = 1 and nonzero elements below the diagonal.
-U: Upper triangular matrix with nonzero elements on and above the diagonal.
-P: Permutation vector or row swap tracker for partial pivoting.
-b: Right-hand side vector in the system A x = b.
-x: Solution vector for A x = b.
-i, j, k: Loop indices representing row, column, and summation indices.
-Partial pivoting: swapping the current row with the row having the largest absolute value in the current column to avoid division by zero or small pivots.
-      </p>
+
+      <h3 style="font-size: 20px; margin: 40px 0 20px 0; font-weight: 700;">Step-by-Step Algorithm (Doolittle + Partial Pivoting)</h3>
+
+      <div class="algorithm-steps">Input: Square matrix A[n][n] and vector b[n]
+Output: L[n][n], U[n][n], permutation vector P[n], solution x[n]
+
+Initialize L = zero matrix, U = zero matrix, P = [0,1,...,n-1]
+
+For i = 0 to n-1:
+    # Partial Pivoting
+    Find pivotRow such that |A[pivotRow][i]| is maximum for rows i..n-1
+    If pivotRow != i:
+        Swap rows i and pivotRow in A and b
+        Swap previous L entries L[i][0..i-1] with L[pivotRow][0..i-1]
+        Swap P[i] with P[pivotRow]
+
+    # Compute U row i
+    For j = i to n-1:
+        U[i][j] = A[i][j] - Σ_{k=0}^{i-1} L[i][k] * U[k][j]
+
+    # Compute L column i
+    For j = i+1 to n-1:
+        L[j][i] = (A[j][i] - Σ_{k=0}^{i-1} L[j][k] * U[k][i]) / U[i][i]
+    Set L[i][i] = 1
+
+# Forward Substitution
+Solve Ly = b (with permutation applied)
+For i = 0 to n-1:
+    y[i] = b[i] - Σ_{k=0}^{i-1} L[i][k] * y[k]
+
+# Back Substitution
+Solve Ux = y
+For i = n-1 down to 0:
+    x[i] = (y[i] - Σ_{k=i+1}^{n-1} U[i][k] * x[k]) / U[i][i]
+
+Return L, U, P, y, x</div>
+
+      <h3 style="font-size: 20px; margin: 40px 0 20px 0; font-weight: 700;">Explanations of the Steps</h3>
+
+      <div class="algorithm-explanations">
+  <div class="cards-container">
+    <div class="card">
+      <h4>Partial Pivoting</h4>
+      <p>Swapping rows ensures the pivot element U[i][i] is the largest in magnitude in its column, reducing rounding errors and avoiding division by zero.</p>
     </div>
+    <div class="card">
+      <h4>Computing U</h4>
+      <p>Each element U[i][j] subtracts the sum of previously computed contributions from L[i][k]·U[k][j].</p>
+    </div>
+    <div class="card">
+      <h4>Computing L</h4>
+      <p>Each element L[j][i] is normalized by the pivot U[i][i], except the diagonal which is always 1.</p>
+    </div>
+    <div class="card">
+      <h4>Forward Substitution</h4>
+      <p>Solves Ly = b starting from the first row, using the known L elements.</p>
+    </div>
+    <div class="card">
+      <h4>Back Substitution</h4>
+      <p>Solves Ux = y from the last row up, using the known U elements.</p>
+    </div>
+    <div class="card">
+      <h4>Permutation Vector P</h4>
+      <p>Keeps track of all row swaps, allowing correct mapping of the solution vector x to the original system.</p>
+    </div>
+  </div>
+</div>
 
+
+      <p style="margin-top: 60px;"><strong>Key Notes:</strong> Partial pivoting ensures numerical stability and allows decomposition of matrices that would otherwise fail with naive LU. All operations are component-wise; each L[i][j] and U[i][j] is computed using previously calculated entries. After decomposition, the system A x = b can be solved efficiently for multiple b vectors without recomputing L and U.</p>
+    </div>
   </div>
 </section>
 

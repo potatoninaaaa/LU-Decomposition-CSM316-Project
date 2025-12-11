@@ -120,7 +120,7 @@ def lu_decomposition():
 # ================= UI =================
 root = tk.Tk()
 root.title("LU Decomposition Solver")
-root.geometry("1300x720")
+root.geometry("1100x700")
 root.configure(bg=PRIMARY_BG)
 root.resizable(False, False)
 

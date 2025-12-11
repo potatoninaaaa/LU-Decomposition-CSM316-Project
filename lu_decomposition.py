@@ -68,49 +68,61 @@ def lu_decomposition():
         b = parse_vector(vector_input.get("1.0", tk.END), n)
 
         if A.shape[0] != A.shape[1]:
-            raise ValueError("Matrix A must be square.")
+            raise ValueError("Matrix A must be square (n × n).")
 
-        L = np.zeros_like(A, float)
-        U = np.zeros_like(A, float)
+        L = np.zeros_like(A, dtype=float)
+        U = np.zeros_like(A, dtype=float)
         P = np.arange(n)
         logs = []
 
-        logs.append("--- LU Decomposition with Partial Pivoting ---\n")
+        logs.append("--- LU Decomposition with Partial Pivoting ---")
+        logs.append("Legend: U[i,j] = upper entry, L[i,j] = lower entry, y = forward solve, x = backward solve\n")
 
         for i in range(n):
-            # Pivoting
+
+            # ===== PIVOTING =====
             max_row = i + np.argmax(np.abs(A[i:, i]))
             if max_row != i:
                 A[[i, max_row]] = A[[max_row, i]]
                 b[i], b[max_row] = b[max_row], b[i]
                 P[i], P[max_row] = P[max_row], P[i]
-                logs.append(f"Swapped rows {i+1} and {max_row+1}")
+                logs.append(f"Pivoting: swap row {i+1} with row {max_row+1}")
 
-            # Fill U row i
+            # ===== COMPUTE U =====
             for j in range(i, n):
-                U[i, j] = A[i, j] - sum(L[i, k] * U[k, j] for k in range(i))
+                s = sum(L[i, k] * U[k, j] for k in range(i))
+                U[i, j] = A[i, j] - s
+                logs.append(f"U[{i+1},{j+1}] = {A[i,j]} - ({round(s,4)}) = {round(U[i,j],4)}")
 
-            # Fill L column i
+            # ===== COMPUTE L =====
             L[i, i] = 1
             for j in range(i + 1, n):
-                L[j, i] = (A[j, i] - sum(L[j, k] * U[k, i] for k in range(i))) / U[i, i]
+                s = sum(L[j, k] * U[k, i] for k in range(i))
+                L[j, i] = (A[j, i] - s) / U[i, i]
+                logs.append(f"L[{j+1},{i+1}] = ({A[j,i]} - {round(s,4)}) / {round(U[i,i],4)} = {round(L[j,i],4)}")
 
-        # Forward Substitution
+        # ===== FORWARD SUBSTITUTION =====
+        logs.append("\n--- Forward Substitution (Ly = b) ---")
         y = np.zeros(n)
         for i in range(n):
-            y[i] = b[i] - sum(L[i, k] * y[k] for k in range(i))
+            s = sum(L[i, k] * y[k] for k in range(i))
+            y[i] = b[i] - s
+            logs.append(f"y[{i+1}] = {b[i]} - ({round(s,4)}) = {round(y[i],4)}")
 
-        # Backward Substitution
+        # ===== BACKWARD SUBSTITUTION =====
+        logs.append("\n--- Back Substitution (Ux = y) ---")
         x = np.zeros(n)
         for i in reversed(range(n)):
-            x[i] = (y[i] - sum(U[i, k] * x[k] for k in range(i + 1, n))) / U[i, i]
+            s = sum(U[i, k] * x[k] for k in range(i + 1, n))
+            x[i] = (y[i] - s) / U[i, i]
+            logs.append(f"x[{i+1}] = ({round(y[i],4)} - {round(s,4)}) / {round(U[i,i],4)} = {round(x[i],4)}")
 
-        # Output
-        output.insert(tk.END, "LU Decomposition Successful!\n\n")
-        output.insert(tk.END, f"L matrix:\n{np.round(L, 4)}\n\n")
-        output.insert(tk.END, f"U matrix:\n{np.round(U, 4)}\n\n")
-        output.insert(tk.END, f"y vector:\n{np.round(y, 4)}\n\n")
-        output.insert(tk.END, f"x vector:\n{np.round(x, 4)}\n\n")
+        # ===== DISPLAY RESULTS IN UI =====
+        output.insert(tk.END, "LU Decomposition Successful!\n\n", "success")
+        output.insert(tk.END, f"L matrix:\n{np.round(L,4)}\n\n")
+        output.insert(tk.END, f"U matrix:\n{np.round(U,4)}\n\n")
+        output.insert(tk.END, f"y vector:\n{np.round(y,4)}\n\n")
+        output.insert(tk.END, f"x vector:\n{np.round(x,4)}\n\n")
         output.insert(tk.END, "Steps:\n" + "\n".join(logs))
 
     except Exception as e:

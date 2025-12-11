@@ -808,3 +808,16 @@ body {
 .back-to-top.show {
   display: block;
 }
+
+/* ======================================
+   FOOTER
+====================================== */
+footer {
+  text-align: center;
+  margin-top: 10px;
+  padding: 28px;
+  font-size: 0.85rem;
+  font-family: "Poppins", sans-serif;
+  background: var(--primary-dark);
+  color: #e5e7eb;
+}

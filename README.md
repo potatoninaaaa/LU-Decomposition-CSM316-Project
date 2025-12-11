@@ -43,8 +43,37 @@ Before running the program, make sure you have:
 
 The program requires **NumPy**. To install it:
 
-1. Open **Command Prompt (Windows)**  
+1. Open **Command Prompt (Windows)** or **Terminal (Mac/Linux)**  
 2. Type the following and press **Enter**:
 
-```bash
-pip install numpy
+## Running the Application
+
+1. Download `LU_solver.py` from this repository.  
+2. Open **Command Prompt** (Windows) or **Terminal** (Mac/Linux) and navigate to the folder where `LU_solver.py` is saved.  
+3. Run the program by typing: python LU_solver.py
+
+4. A window will appear where you can:  
+   - Enter your square matrix \(A\)  
+   - Enter the vector \(b\)  
+   - Press the **Solve** button to compute the LU decomposition and see the solution \(x\) along with the computational steps.
+
+---
+
+## Advantages of the Python Version
+
+- Run the solver locally without opening a web browser.  
+- Python code is readable and can be studied or modified easily.  
+- Easy to share as a standalone file with others.  
+
+---
+
+## Disadvantages of the Python Version
+- Requires Python and NumPy installation, which may be an extra step for beginners.  
+
+---
+
+## Notes
+
+- This program is **educational**, so it is best for learning and small to medium matrices.  
+- For very large matrices, more advanced numerical libraries or optimization may be needed.  
+
